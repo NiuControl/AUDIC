@@ -16,15 +16,15 @@ AUDIC bridges the gap between PID and MPC, combining the simplicity and reliabil
 
 AUDIC offers the following unique advantages:
    
-    a. Superior Control Performance.  AUDIC delivers advanced predictive control by optimizing multi-step control actions, ensuring consistent and accurate performance even for processes with large time-delays.
+   a. Superior Control Performance.  AUDIC delivers advanced predictive control by optimizing multi-step control actions, ensuring consistent and accurate performance even for processes with large time-delays.
 
-    b. Fully Automated and Maintenance-Free.  AUDIC operates without user intervention or prior process knowledge. After a brief self-learning phase (10–30 steps), it transitions seamlessly to normal operation without the need for parameter tuning or adjustments.
+   b. Fully Automated and Maintenance-Free.  AUDIC operates without user intervention or prior process knowledge. After a brief self-learning phase (10–30 steps), it transitions seamlessly to normal operation without the need for parameter tuning or adjustments.
 
-    c. Adaptive Functionality. Leveraging real-time identification, AUDIC dynamically adjusts its internal model and control settings to track changes in process characteristics, maintaining optimal performance in nonlinear and time-varying systems.
+   c. Adaptive Functionality. Leveraging real-time identification, AUDIC dynamically adjusts its internal model and control settings to track changes in process characteristics, maintaining optimal performance in nonlinear and time-varying systems.
 
-    d. Simple Architecture, Low Resource Requirements.  AUDIC’s streamlined structure eliminates the need for complex system modeling or online optimization. The algorithm is light-weight and can even run in a web browser, making it a practical and versatile solution for diverse applications.
+   d. Simple Architecture, Low Resource Requirements.  AUDIC’s streamlined structure eliminates the need for complex system modeling or online optimization. The algorithm is light-weight and can even run in a web browser, making it a practical and versatile solution for diverse applications.
 
-    e. High Scalability.  AUDIC easily extends to multi-variable control, including feedforward control, and can achieve true nonlinear predictive control for processes with known nonlinear models.
+   e. High Scalability.  AUDIC easily extends to multi-variable control, including feedforward control, and can achieve true nonlinear predictive control for processes with known nonlinear models.
 
 
 3. Theoretical Foundation of AUDIC
