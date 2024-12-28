@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUDI for Control</title>
+    <style>
+body {font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 0; padding: 0;}
+header {background-color: #4CAF50; color: white; padding: 15px; text-align: center;}
+main {padding: 20px;}
+button {padding: 10px 20px; font-size: 16px; cursor: pointer; background-color: #4CAF50; color: white; border: none; border-radius: 5px;}
+.hover {color: blue;}
+button:hover {background-color: #45a049;}
+#output {margin-top: 20px; padding: 10px; background-color: #f9f9f9; border: 1px solid #ddd;}
+table {font-size: 20px;}
+th {text-align: left;}
+.display, .display-r {font-size: 26px; padding: 0 5px; font-weight: normal; font-family: "Courier New", Courier, monospace;}
+.display-r {text-align: right;}
+.input, .input-w {text-align: right; font-weight: bold; font-family: "Courier New", Courier, monospace;}
+.input {width: 6ch;}
+.input-w {width: 8ch;}
+.td-w {width: 25px;}
+.td-r {text-align: right; padding-right: 5px;}
+</style>
+
+  </head>
+  
+  <body>    
+    <header>
+      <h1>AUDIC: Automated Dynamic Identification and Control</h1>
+    </header>
+    
+    <!-- Main Content Section -->
+    <main>
+	
+      <table>
+	<tr>
+	  <th colspan="3">CONTROL RESULT</th>
+	  <td class="td-w"/>
+	  <th colspan="6"><div id="uiTS">4:04:25 PM</div></th>
+	</tr>
+	<tr><th colspan="8"><hr/></th></tr>
+	  <tr>	    
+	    <td></td>
+	    <td class="td-w"/>
+	    <td class="display-r">Current</td>
+	    <td class="td-w"/>
+	    <td colspan="6" class="display">Future (Model-based Prediction)</td>
+	  </tr>
+	<tr>	    
+	  <td class="td-w">Setpoint: </td>
+	  <td class="td-w"/>
+	    <td class="td-w"><div id="uiSPNOW" class="display-r">500.0</div></td>
+	</tr>
+	<tr>
+	  <td class="td-w">Input: </td>
+	  <td class="td-w"/>
+	  <td class="td-w"><div id="uiMVNOW" class="display-r">50.0</div></td>
+	    <td>=></td>
+	  <td colspan="4"><div id="uiMVF" class="display">500.0</div></td>
+	</tr>
+	<tr>
+	  <td>Output: </td>
+	  <td class="td-w"/>
+	  <td><div id="uiCVNOW" class="display-r">500.0</div></td>
+	  <td>=></td>
+	  <td colspan="4"><div id="uiCVF" class="display">500.0</div></td>
+	</tr>
+      </table>
+      
+      <br/></br>
+      
+      <table>
+	<tr>
+	  <th colspan="4">CONTROL MODE: &nbsp;&nbsp; </th>
+	  <th colspan="8"><div class="display" id="uiALGO">OPEN LOOP</div></th>
+	</tr>
+	<tr><th colspan="16"><hr/></th></tr>
+	<tr>
+	  <td colspan="2"><button style="width:80px;" id="uiRUNMAN">RUN</button></td>
+	  <td class="display">MANUAL</td>
+	  <td class="td-w"/>
+	  <td class="td-r">MV: </td>
+	  <td><input type="text" class="input-w" id="uiMV" value="50.0"></td>
+	  <td colspan="8"/>
+	</tr>
+	<tr>
+	  <td colspan="2"><button style="width:80px;" id="uiRUNPID">RUN</button></td>
+	  <td class="display">PID</td>
+	  <td class="td-w"/>
+	  <td class="td-r">SP:</td>
+	  <td><input type="text" class="input-w" id="uiSP" value="500.0"></td>
+	  <td class="td-w"/>
+	  <td class="td-r">KC:</td><td><input type="text" class="input" id="uiKC" value="0.1"></td>
+	  <td class="td-w"/>
+	  <td class="td-r">TI:</td>
+	  <td><input type="text" class="input" id="uiTI" value="10.0"></td>
+	  <td class="td-w"/>
+	  <td class="td-r">TD:</td>
+	  <td><input type="text" class="input" id="uiTD" value="0.0"></td>
+	</tr>
+	<tr>
+	  <td colspan="2"><button style="width:80px;" id="uiRUNAUDIC">RUN</button></td>
+	  <td class="display">AUDIC</td>
+	  <td class="td-w"/>
+	  <td class="td-r">SP:</td>
+	  <td><input type="text" class="input-w" id="uiSPA" value="500.0"></td>
+	</tr>
+      </table>
+      
+      <br/></br></br>
+      <table>
+	<tr>
+	  <th colspan="6">PROCESS:&nbsp;&nbsp; </th>
+	  <th colspan="6"><span class="display" id="uiMODEL">Second Order Oscillatory System</span></th>
+	</tr>
+      </table>
+      <table>
+	<tr><th colspan="18"><hr/></th></tr>
+	<tr>
+	  <td colspan="4">PROCESS MODEL</td>
+	  <td class="hover" id="uiQPro"> &#9432; </td>
+	  <td colspan="4"/>
+	  <td colspan="8">CONTROL LIMITS:</td>
+	</tr>
+	<tr>
+	  <td>A0: </td><td text-align="right">&nbsp;&nbsp;1.00</td>
+	  <td class="td-w"/>
+	  <td>B0: </td><td text-align="right">&nbsp;&nbsp;0.00</td>
+	  <td/>
+	<tr>
+	  <td>A1: </td><td><input type="text" class="input" id="uiA1" value="-1.5"></td>
+	  <td class="td-w"/>
+	  <td>B1: </td><td><input type="text" class="input" id="uiB1" value=" 1.0"></td>
+	  <td class="td-w"/>
+	  <td>Time Delay: </td><td><input type="text" class="input" id="uiDT" value="3"></td>
+	  <td class="td-w"/>
+	  <td class="td-w"/>
+	  <td colspan="4">Static Gain (CV/MV Range)<span id="uiQGain" class="hover"> &#9432;</span> </td>
+	  <td colspan="2"><input type="text" class="input" id="uiKPS" value="10.0"></td>
+	</tr>
+	<tr>
+	  <td>A2: </td><td><input type="text" class="input" id="uiA2" value="0.7"></td>
+	  <td class="td-w"/>
+	  <td>B2: </td><td><input type="text" class="input" id="uiB2" value="0.5"></td>
+	  <td class="td-w"/>
+	  <td>Load/Offset: </td><td><input type="text" class="input" id="uiDD" value="5.0"></td>
+	  <td class="td-w"/>
+	  <td class="td-w"/>
+	  <td class="td-r">MV.Min: </td><td><input type="text" class="input" id="uiUMIN" value="5.0"></td>
+	  <td class="td-w"/>
+	  <td class="td-r">MV.Max: </td><td><input type="text" class="input" id="uiUMAX" value="95.0"></td>
+	</tr>
+	<tr>
+	  <td>A3: </td><td><input type="text" class="input" id="uiA3" value="0.0"></td>
+	  <td class="td-w"/>
+	  <td>B3: </td><td><input type="text" class="input" id="uiB3" value="0.0"></td>
+	  <td class="td-w"/>
+	  <td>Noise Level: </td><td><input type="text" class="input" id="uiVV" value="10.0"></td>
+	  <td class="td-w"/>
+	  <td class="td-w"/>
+	  <td class="td-r">&Delta;MV.Min: </td><td><input type="text" class="input" id="uiDUMIN" value="0.5"></td>
+	  <td class="td-w"/>
+	  <td class="td-r">&Delta;MV.Max: </td><td><input type="text" class="input" id="uiDUMAX" value="5.0"></td>
+	</tr>
+	<tr>
+	  <td>A4: </td><td><input type="text" class="input" id="uiA4" value="0.0"></td>
+	  <td class="td-w"/>
+	  <td>B4: </td><td><input type="text" class="input" id="uiB4" value="0.0"></td>
+	</tr>
+	<tr>
+	  <td colspan="4"><button id="uiSWITCHMODEL">&nbsp;SWITCH MODEL</button></td>
+	  <td colspan="4"><button id="uiSETMODEL">&nbsp;SET MODEL</button></td>
+	  <td colspan="2">
+	  <td colspan="4"><button id="uiSETLIMITS">&nbsp;SET LIMITS</button></td>
+	</tr>
+	
+      </table>
+      
+      
+      <!-- Status Section -->
+      <hr/>
+      <table>
+	<tr>
+          <td><div id="status"></div></td>
+	</tr>
+      </table>
+    </main>
+    
+    
+    
+    <script>
+      let EPS=Number.EPSILON,modelId=1;function initialize(){sessionStorage.setItem("dbALGO","1"),sessionStorage.setItem("dbCNT","1"),sessionStorage.setItem("dbAA",JSON.stringify([1,-1.5,.7,0,0])),sessionStorage.setItem("dbBB",JSON.stringify([0,1,.5,0,0])),sessionStorage.setItem("dbDD",5),sessionStorage.setItem("dbDT",3),sessionStorage.setItem("dbVV",10);var e=Math.max(50,20),t=(sessionStorage.setItem("dbNA",2),sessionStorage.setItem("dbNB",15),sessionStorage.setItem("dbNW",50),sessionStorage.setItem("dbNP",e),Array.from({length:19},()=>Array(19).fill(0))),t=(sessionStorage.setItem("dbARM",JSON.stringify(t)),JSON.stringify(new Array(e).fill(EPS))),t=(sessionStorage.setItem("dbMVF",t),sessionStorage.setItem("dbCVF",t),sessionStorage.setItem("dbSPF",t),e),e=new Array(t).fill(50),s=new Array(t).fill(500),t=new Array(t).fill(500);sessionStorage.setItem("dbMV",50),sessionStorage.setItem("dbKPS",10),sessionStorage.setItem("dbCVP",JSON.stringify(s)),sessionStorage.setItem("dbMVP",JSON.stringify(e)),sessionStorage.setItem("dbSPP",JSON.stringify(t))}function process(e){var t=JSON.parse(sessionStorage.getItem("dbMVP")),s=JSON.parse(sessionStorage.getItem("dbCVP")),a=simulate(e,t,s,JSON.parse(sessionStorage.getItem("dbAA")),JSON.parse(sessionStorage.getItem("dbBB")),parseFloat(sessionStorage.getItem("dbDD")),parseFloat(sessionStorage.getItem("dbDT")),parseFloat(sessionStorage.getItem("dbVV")));return t.unshift(e),t.pop(),s.unshift(a),s.pop(),sessionStorage.setItem("dbCVP",JSON.stringify(s)),sessionStorage.setItem("dbMVP",JSON.stringify(t)),sessionStorage.setItem("dbMVNOW",e),sessionStorage.setItem("dbCVNOW",a),a}function control(e){let t=parseInt(sessionStorage.getItem("dbNP")),s=parseInt(sessionStorage.getItem("dbNW")),a=JSON.parse(sessionStorage.getItem("dbMVP")),n=JSON.parse(sessionStorage.getItem("dbCVP")),o=JSON.parse(sessionStorage.getItem("dbSPP")),r=parseInt(sessionStorage.getItem("dbNA")),i=parseInt(sessionStorage.getItem("dbNB")),l=JSON.parse(sessionStorage.getItem("dbARM")),d=armUpdate(l,a,n,r,i,s).arm_new,g=(sessionStorage.setItem("dbARM",JSON.stringify(d)),parseInt(sessionStorage.getItem("dbALGO"))),m=parseInt(sessionStorage.getItem("dbCNT")),u,S,I;switch(g){case 1:u=parseFloat(sessionStorage.getItem("dbMV")),S=openloop(S=new Array(t).fill(u),a,n),I=new Array(t).fill(o[0]),u=S[0];break;case 2:var c=parseFloat(sessionStorage.getItem("dbSP"));I=new Array(t).fill(c),u=pid(c,a,n),S=new Array(t).fill(u);break;case 3:c=parseFloat(sessionStorage.getItem("dbSP"));(I=JSON.parse(sessionStorage.getItem("dbSPF"))).fill(c),S=audic(I,a,n),u=S[0]}sessionStorage.setItem("dbCNT",m+1);var{aa:b,bb:f,dd:h}=arm2arx(l,r,i,parseFloat(sessionStorage.getItem("dbKPS")),a,n),b=predict(S,a,n,b,f,h);return o.unshift(I[0]),o.pop(),sessionStorage.setItem("dbSPNOW",I[0]),sessionStorage.setItem("dbSPP",JSON.stringify(o)),sessionStorage.setItem("dbMVF",JSON.stringify(S)),sessionStorage.setItem("dbCVF",JSON.stringify(b)),sessionStorage.setItem("dbSPF",JSON.stringify(I)),u}function openloop(e,t,s){Math.max(1,parseInt(sessionStorage.getItem("dbNA"))),Math.max(2,parseInt(sessionStorage.getItem("dbNB"))),JSON.parse(sessionStorage.getItem("dbARM"));var a=parseInt(sessionStorage.getItem("dbCNT")),a=e[0]+0*([1,0,0,0,1,0,1,1,1,0,0,1,1,0,1,1,0,1,0,0,1,0,1,0,1,1,1,1,0,0,0,1,1,1,0,1,0,0,0,1,0,1,0,0,1,1,0,1,1,1,0,0,0,1,0,1,1,1,1,0,1,0,1][a%62]-.5);return e.fill(a)}function pid(e,t,s){let a=parseFloat(sessionStorage.getItem("dbKPS")),n=parseFloat(sessionStorage.getItem("dbUMIN")),o=parseFloat(sessionStorage.getItem("dbUMAX")),r=parseFloat(sessionStorage.getItem("dbDUMIN")),i=parseFloat(sessionStorage.getItem("dbDUMAX")),l=parseFloat(sessionStorage.getItem("dbKC")),d=parseFloat(sessionStorage.getItem("dbTI")),g=parseFloat(sessionStorage.getItem("dbTD")),m=parseFloat(sessionStorage.getItem("dbESUM")),u=parseFloat(sessionStorage.getItem("dbEPRE")),S=e-s[0],I=S-u,c=l/a*(S+1/d*(m+=S)+g*I),b=(Math.abs(c)>i&&(c=Math.sign(c)*i),Math.abs(c)<r&&(c=Math.sign(c)*r),t[0]+c);return((b=(b=o<b?o:b)<n?n:b)>=o||b<=n)&&(m=0),u=S,sessionStorage.setItem("dbESUM",m.toString()),sessionStorage.setItem("dbEPRE",u.toString()),b}function audic(e,t,s){var a=parseFloat(sessionStorage.getItem("dbNA")),n=parseFloat(sessionStorage.getItem("dbNB")),o=parseFloat(sessionStorage.getItem("dbKPS")),r=parseFloat(sessionStorage.getItem("dbUMIN")),i=parseFloat(sessionStorage.getItem("dbUMAX")),l=parseFloat(sessionStorage.getItem("dbDUMIN")),d=parseFloat(sessionStorage.getItem("dbDUMAX")),{aa:a,bb:n,dd:g}=arm2arx(JSON.parse(sessionStorage.getItem("dbARM")),a,n,o,t,s);return mpc(e,t,s,a,n,g,o,r,i,l,d)}function mpc(i,l,d,g,m,u,e,S,I,c,b){let f=i.length,[t,s,h]=(d.length<f||l.length,[5,3,1]),a=(g.length,m.length,i[0]-d[0]),p=Math.sign(a)*Math.max(c,Math.min(Math.abs(a)/e,b)),M=Array(f).fill(l[0]),y=Array(f).fill(d[0]),E=1,n=m.reduce((e,t)=>e+t,0)/g.reduce((e,t)=>e+t,0);if(5<Math.abs(n/e)||Math.abs(n/e)<.2)M=new Array(f).fill(l[0]+p),y=predict(M,l,d,g,m,u),E=0;else{let r=Number.MAX_VALUE;for(let e=-t-1;e<=t+1;e++){let o=clamp(l[0]+clamp(p*e/t,c,b,1),S,I,0);o>S&&o<c&&(o=S);for(let e=-s-1;e<=s+1;e++){var A=clamp(o+clamp(p*e/s,c,b,1),S,I,0);for(let n=-h-1;n<=h+1;n++){let e=clamp(A+clamp(p*n/h,c,b,1),S,I,0),t=[o,A,e,...Array(f-3).fill(e)],a=predict(t,l,d,g,m,u),s=i.reduce((e,t,s)=>e+Math.pow(t-a[s],2),0);r>s&&(r=s,M=t,y=a,E=0)}}}}return E,M[0]>I&&(M[0]=I),M[0]<S&&(M[0]=S),M}function armUpdate(n,t,s,a,o,e){let r=a+o+2,i=n[0][0]*n[0][0],l=1;if(r!=n.length){n=Array.from({length:r},()=>Array(r).fill(0));for(let e=0;e<r;e++)n[e][e]=EPS;l=0}i<r/2&&(l=0);var d=new Array(r);for(let e=0;e<a;e++)d[e+1]=-s[e+1];for(let e=0;e<o;e++)d[e+a+1]=t[e+1];d[0]=1,d[r-1]=-s[0];Math.min(...d.slice(a+1,a+o+1)),Math.max(...d.slice(a+1,a+o+1));EPS;var g=i<=e?1:Math.sqrt(e-1)/n[0][0];for(let a=0;a<r;a++){var m,u=n[a][a]*g,S=d[a];if(Math.abs(u)>EPS||Math.abs(S)>EPS){let t,s;Math.abs(u)>Math.abs(S)?(m=S/u,t=1/Math.sqrt(1+m*m),s=m*t,n[a][a]=u/t):(m=u/S,s=1/Math.sqrt(1+m*m),t=m*s,n[a][a]=S/s);for(let e=a+1;e<r;e++){var I=n[a][e]*g,c=d[e];(Math.abs(I)>EPS||Math.abs(c)>EPS)&&(n[a][e]=t*I+s*c,d[e]=t*c-s*I)}d[a]=0}}return{arm_new:n,ready:l}}function armstat(e,s,a,n){let t;switch(e){case"nwin":t=s[0][0]*s[0][0];break;case"estd":t=s[nm-1][nm-1]/s[0][0];break;case"uavg":t=s[0][a+1]/s[0][0];break;case"ulag":t=s[0][a+n]/s[0][0];break;case"yag":t=-s[0][a]/s[0][0];break;case"yavg":t=-s[0][1]/s[0][0];break;case"ustd":t=(()=>{let t=0;for(let e=1;e<=n;e++)t+=s[e][a+1]*s[e][a+1];return t/s[0][0]})();break;case"ystd":t=(()=>{let t=0;for(let e=1;e<nm;e++)t+=s[e][1]*s[e][1];return t/s[0][0]})()}return t}function arm2arx(i,e,t,n,s,a){let l=i.length,d=.001;if(l!=i[0].length||l!=e+t+2)throw new Error("Dimension error");var g,m=Array.from({length:l},(e,t)=>t);let u=l-1;for(let r=1;r<l-1;r++){let o=r,e=1/EPS;for(let n=r;n<l-1;n++){let t=0,s=0,a=0;for(let e=r;e<l;e++)t+=i[e][n]*i[e][n],a+=i[e][n]*i[e][l],s+=i[e][l]*i[e][l];t>EPS&&s>EPS&&(g=(s-a*a/t)*(1+n/l/10),e>g)&&(o=n,e=g)}if(o>r){[m[o],m[r]]=[m[r],m[o]];for(let e=0;e<l;e++)[i[e][o],i[e][r]]=[i[e][r],i[e][o]]}for(let t=r+1;t<l;t++){var S=i[r][r],I=i[t][r];if(Math.abs(S)>EPS||Math.abs(I)>EPS){var c=Math.sqrt(S*S+I*I);if(c>EPS){var b=S/c,f=I/c;for(let e=r+1;e<l;e++){var h=i[r][e],p=i[t][e];i[r][e]=b*h+f*p,i[t][e]=b*p-f*h}i[r][r]=c,i[t][r]=0}else i[r][r]=0}}if(Math.abs(i[r][l-1]/i[0][l-1])<d||Math.abs(i[r][r]/i[0][r])<d){u=r-1;break}}u=Math.max(e+2,u),u=l-1,i=i.slice(0,u+1).map(e=>e.slice(0,u).concat(e[l-1]));var o=Array.from({length:u},()=>Array(u).fill(0));for(let s=0;s<u;s++){o[s][s]=EPS,Math.abs(i[0][s])>EPS&&Math.abs(i[s][s])>EPS&&Math.abs(i[s][s]/i[0][s])>EPS&&(o[s][s]=1/i[s][s]);for(let t=0;t<s;t++){o[t][s]=EPS;for(let e=0;e<s;e++)o[t][s]-=o[t][e]*i[e][s];o[t][s]*=o[s][s]}}var r=Array(l).fill(0);for(let s=0;s<u;s++){let t=0;for(let e=0;e<u;e++)t+=o[s][e]*i[e][u];r[m[s]]=-t}let M=[1,...r.slice(1,e+1)],y=[0,...r.slice(e+1,e+t+1)],E=r[0],A=0;for(let e=1;e<M.length;e++)A+=Math.abs(M[e]);for(let e=M.length-1;1<e&&(A<EPS||Math.abs(M[e])<A*d);e--)M.pop();A=0;for(let e=1;e<y.length;e++)A+=Math.abs(y[e]);for(let e=y.length-1;1<e&&(A<EPS||Math.abs(y[e])<A*d);e--)y.pop();if(2===M.length&&(M[1]<-1||0<M[1])&&(M=[1,0],y=[0,n]),3===M.length){let e=1,t=M[1]*M[1]-4*M[2],s,a;0<=t?(s=(-M[1]+Math.sqrt(t))/2,a=(-M[1]-Math.sqrt(t))/2,(1<Math.abs(s)||1<Math.abs(a))&&(e=0)):(s=-M[1]/2,a=Math.sqrt(-t)/2,1<Math.sqrt(s*s+a*a)&&(e=0)),0==e&&(M=[1,0],y=[0,n])}e=y.reduce((e,t)=>e+t,0)/M.reduce((e,t)=>e+t,0);(e/n<d||e/n<0)&&(M=[1,0],y=[0,n]),E=a[0];for(let e=1;e<M.length;e++)E+=M[e]*a[e];for(let e=1;e<y.length;e++)E-=y[e]*s[e];return{aa:M,bb:y,dd:E}}function predict(s,a,n,o,r,i){if(arguments.length<6)throw new Error("Usage: predict(uf, up, yp, aa, bb, dd)");var l=o.length-1,d=r.length-1,t=s.length,e=a.length,g=n.length,m=(e<d&&(a=a.concat(new Array(d-e).fill(0))),g<l&&(n=n.concat(new Array(l-g).fill(0))),new Array(t).fill(0));for(let e=0;e<t;e++){a=[s[e],...a.slice(0,a.length-1)];let t=i;for(let e=1;e<=l;e++)t-=o[e]*n[e-1];for(let e=1;e<=d;e++)t+=r[e]*a[e-1];n=[m[e]=t,...n.slice(0,n.length-1)]}return m}function simulate(e,t,s,a,n,o,r,i){var l=a.length,d=n.length;if(s.length<2||s.length!==t.length)throw new Error("Dimension error with data vector yp or up");let g=o+i*(Math.random()-.5);for(let e=1;e<l;e++)g-=a[e]*s[e-1];for(let e=1;e<d;e++)g+=n[e]*t[e-1+r];return g}function switchModel(e){let t,s,a,n;switch(e%6){case 1:t=[1,-1.2,.35,0,0],s=[0,.5,.2,0,0],a=5,n="Second order Stable System";break;case 2:t=[1,-1.5,.7,0,0],s=[0,1,.5,0,0],a=10,n="Second order Oscillatory System";break;case 3:t=[1,-1.1,.24,-.05,.04],s=[0,2,1.4,-.2,0],a=30,n="High order stable system";break;case 4:t=[1,-1,0,0,0],s=[0,.1,0,0,0],a=15,n="Integrating (ramping) system";break;case 5:t=[1,-1,0,0,0],s=[0,.1,0,0,0],a=15,n="Double Integrator system";break;default:t=[1,-.7,0,0,0],s=[0,2.1,0,0,0],a=10,n="First Order plus Delay"}return{aa:t,bb:s,kps:a,modelName:n}}function clamp(e,t,s,a){return a?Math.sign(e)*Math.max(t,Math.min(s,Math.abs(e))):Math.max(t,Math.min(s,e))}function showARM(a,t){var n=a.length;for(let s=0;s<n;s++){let t="adm "+s+": ";for(let e=0;e<n;e++)t+=a[s][e].toFixed(2)+", "}let s="";for(let e=0;e<n;e++)s+=t[e].toFixed(2)+","}(()=>{let a=1,e=0;function t(){var e,t,s=control(parseFloat(sessionStorage.getItem("dbSP"))),a=process(s),n=JSON.parse(sessionStorage.getItem("dbSPP"));JSON.parse(sessionStorage.getItem("dbSPF")),JSON.parse(sessionStorage.getItem("dbMVP")),e=JSON.parse(sessionStorage.getItem("dbMVF")),JSON.parse(sessionStorage.getItem("dbCVP")),t=JSON.parse(sessionStorage.getItem("dbCVF")),document.getElementById("uiTS").textContent=(new Date).toLocaleTimeString(),document.getElementById("uiMVNOW").textContent=s.toFixed(2),document.getElementById("uiCVNOW").textContent=a.toFixed(2),document.getElementById("uiSPNOW").textContent=n[0].toFixed(2),document.getElementById("uiCVF").textContent=t[0].toFixed(2)+", "+t[1].toFixed(2)+", "+t[3].toFixed(2)+", ..., "+t.at(-1).toFixed(2),document.getElementById("uiMVF").textContent=e[0].toFixed(2)+", "+e[1].toFixed(2)+", "+e[3].toFixed(2)}function n(e){document.getElementById("status").innerHTML=e}window.onload=function(){initialize(),document.getElementById("uiQPro").addEventListener("click",function(){alert("Process model is defined by transfer function below (up to 4th order).\n\n                 b1*q^(-1) + b2*q^(-2) + b3*q^(-3) + b4*q^(-4) \n G(q) = ------------------------------------------------------------------------ * q^(-dt)\n              1 + a1*q^(-1) + a2*q^(-2) + a3*q^(-3) + a4*q^(-4) \n\n A(q)*y(k) = B(q)*u(k) + d(k) + v(k)\n\n Modified the parameters to your like (make sure it is stable)\nOr click SWITCH MODEL to select from pre-defined models\n\nThen click ACCEPT MODEL to commit the change")}),document.getElementById("uiQGain").addEventListener("click",function(){alert("Static gain is the ratio between the CV signal range and the MV range.\n\nFor example, if the MV is valve opening between 0-100% \nand the CV is a temperature with measurement range betwee 0 to 250 degrees,\n\nthen the static process gain can be entered as 2.5 or even 3.0 (approximate)")}),document.getElementById("uiRUNMAN").addEventListener("click",function(){clearInterval(e),sessionStorage.setItem("dbALGO","1"),sessionStorage.setItem("dbMV",document.getElementById("uiMV").value),document.getElementById("uiALGO").textContent="MANUAL CONTROL",e=setInterval(t,1e3),n("Started Open-Loop control")}),document.getElementById("uiRUNPID").addEventListener("click",function(){clearInterval(e),sessionStorage.setItem("dbALGO","2"),sessionStorage.setItem("dbSP",document.getElementById("uiSP").value),sessionStorage.setItem("dbKC",document.getElementById("uiKC").value),sessionStorage.setItem("dbTI",document.getElementById("uiTI").value),sessionStorage.setItem("dbTD",document.getElementById("uiTD").value),sessionStorage.setItem("dbESUM",0),sessionStorage.setItem("dbEPRE",0),document.getElementById("uiALGO").textContent="PID CONTROL",e=setInterval(t,1e3),n("Started PID control ...")}),document.getElementById("uiRUNAUDIC").addEventListener("click",function(){clearInterval(e),sessionStorage.setItem("dbALGO","3"),sessionStorage.setItem("dbSP",document.getElementById("uiSPA").value),sessionStorage.setItem("dbUMIN",document.getElementById("uiUMIN").value),sessionStorage.setItem("dbUMAX",document.getElementById("uiUMAX").value),sessionStorage.setItem("dbDUMIN",document.getElementById("uiDUMIN").value),sessionStorage.setItem("dbDUMAX",document.getElementById("uiDUMAX").value),document.getElementById("uiALGO").textContent="AUDIC CONTROL",e=setInterval(t,1e3),n("Started AUDIC control ...")}),document.getElementById("uiSETMODEL").addEventListener("click",function(){var e=[1,parseFloat(document.getElementById("uiA1").value),parseFloat(document.getElementById("uiA2").value),parseFloat(document.getElementById("uiA3").value),parseFloat(document.getElementById("uiA4").value)],t=[0,parseFloat(document.getElementById("uiB1").value),parseFloat(document.getElementById("uiB2").value),parseFloat(document.getElementById("uiB3").value),parseFloat(document.getElementById("uiB4").value)];sessionStorage.setItem("dbAA",JSON.stringify(e)),sessionStorage.setItem("dbBB",JSON.stringify(t)),sessionStorage.setItem("dbDD",document.getElementById("uiDD").value),sessionStorage.setItem("dbDT",document.getElementById("uiDT").value),sessionStorage.setItem("dbVV",document.getElementById("uiVV").value),n("Simulation model has been changed.")}),document.getElementById("uiSETLIMITS").addEventListener("click",function(){sessionStorage.setItem("dbKPS",document.getElementById("uiKPS").value),sessionStorage.setItem("dbUMIN",document.getElementById("uiUMIN").value),sessionStorage.setItem("dbUMAX",document.getElementById("uiUMAX").value),sessionStorage.setItem("dbDUMIN",document.getElementById("uiDUMIN").value),sessionStorage.setItem("dbDUMAX",document.getElementById("uiDUMAX").value),n("Operating condition has changed.")}),document.getElementById("uiSWITCHMODEL").addEventListener("click",function(){var{aa:e,bb:t,modelName:s}=switchModel(a++);document.getElementById("uiA1").value=e[1],document.getElementById("uiA2").value=e[2],document.getElementById("uiA3").value=e[3],document.getElementById("uiA4").value=e[4],document.getElementById("uiB1").value=t[1],document.getElementById("uiB2").value=t[2],document.getElementById("uiB3").value=t[3],document.getElementById("uiB4").value=t[4],n('Model "'+(document.getElementById("uiMODEL").textContent=s)+" is ready. Click ACCEPT to commit.")}),e=setInterval(t,1e3),n("Application initialized. Click any of the control method to starting running ...... ")}})();
+    </script>
+    
+</body>
+</html>
