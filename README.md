@@ -35,4 +35,4 @@ The algorithm avoids the computational complexity of traditional MPC (e.g., onli
 
 4. Demonstration Software
    
-A browser-based implementation of the AUDIC algorithm is available on GitHub (https://github/NiuControl/AUDIC) or via email (niucontrol@gmail.com).
+A browser-based implementation of the AUDIC algorithm is available on GitHub (https://github/NiuControl.com/AUDIC) or via email (niucontrol@gmail.com).
