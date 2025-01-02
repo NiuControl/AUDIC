@@ -37,17 +37,19 @@ The control algorithm utilizes a direct control technique and avoids the computa
    
 A browser-based implementation of the AUDIC algorithm is available on GitHub (https://github.com/NiuControl/AUDIC) or upon request via email (niucontrol@gmail.com).
 
+
+
 5. References
 
-Niu S (1994) Augmented UD Identification for Process Control. Ph.D. Thesis, University of Alberta
-Niu S, Fisher DG (1995) Simultaneous Estimation of Process Parameters, Noise Variance and Signal-to-Noise Ratio. IEEE Transactions on Signal Processing 43:1725–1728
-Niu S, Fisher DG (1997) Detecting Parameter Identifiability Problems In System Identification. International Journal of Adaptive Control and Signal Processing 11:603–619
-Niu S, Fisher DG (1996) Recursive Information Forgetting with Augmented UD Identification. International Journal of Control 63:623–637
-Niu S, Fisher DG, Ljung L, Shah SL (1994) A Tutorial on Multiple Model Least-Squares and Augmented UD Identification. Department of Electrical Engineering, Linkoping University, Linkoping, S58183, Sweden
-Niu S, Fisher DG, Xiao D (1992) An Augmented UD Identification Algorithm. International Journal of Control 56:193–211
-Niu S, Ljung L, Bjöck Å (1996) Decomposition Methods for Least-Squares Parameter Estimation. IEEE Transactions on Signal Processing 44:2847–2852
-Niu S, Xiao D, Fisher DG (1991) A Recursive Algorithm for Simultaneous Identification of Model Order and Parameters. IEEE Transactions on Acoustics, Speech, and Signal Processing 38:884–886
-Niu SS (2024) Process Control for Pumps and Compressors. Springer
-Niu SS, Xiao D (2022) Process Control –- Engineering Analyses and Best Practices. Springer
+- Niu S (1994) Augmented UD Identification for Process Control. Ph.D. Thesis, University of Alberta
+- Niu S, Fisher DG (1995) Simultaneous Estimation of Process Parameters, Noise Variance and Signal-to-Noise Ratio. IEEE Transactions on Signal Processing 43:1725–1728
+- Niu S, Fisher DG (1997) Detecting Parameter Identifiability Problems In System Identification. International Journal of Adaptive Control and Signal Processing 11:603–619
+- Niu S, Fisher DG (1996) Recursive Information Forgetting with Augmented UD Identification. International Journal of Control 63:623–637
+- Niu S, Fisher DG, Ljung L, Shah SL (1994) A Tutorial on Multiple Model Least-Squares and Augmented UD Identification. Department of Electrical Engineering, Linkoping University, Linkoping, S58183, Sweden
+- Niu S, Fisher DG, Xiao D (1992) An Augmented UD Identification Algorithm. International Journal of Control 56:193–211
+- Niu S, Ljung L, Bjöck Å (1996) Decomposition Methods for Least-Squares Parameter Estimation. IEEE Transactions on Signal Processing 44:2847–2852
+- Niu S, Xiao D, Fisher DG (1991) A Recursive Algorithm for Simultaneous Identification of Model Order and Parameters. IEEE Transactions on Acoustics, Speech, and Signal Processing 38:884–886
+- Niu SS (2024) Process Control for Pumps and Compressors. Springer
+- Niu SS, Xiao D (2022) Process Control –- Engineering Analyses and Best Practices. Springer
 
    
